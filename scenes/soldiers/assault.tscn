@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://6qns4wkoe8hd"]
 
+[ext_resource type="Script" uid="uid://dee7e3ttgi85j" path="res://scripts/soldiers/assault.gd" id="1_2gv0r"]
 [ext_resource type="Texture2D" uid="uid://c8rj3urgt8o4" path="res://assets/Soldiers/Assault-Class.png" id="1_fhxef"]
-[ext_resource type="Script" uid="uid://dee7e3ttgi85j" path="res://scripts/soldiers/soldier.gd" id="1_x0xke"]
 [ext_resource type="Texture2D" uid="uid://b0mvac774kpdr" path="res://assets/Effects/muzzle-flashes.png" id="3_25aib"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ihnlc"]
@@ -89,8 +89,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_25aib"]
 radius = 8.0
 
-[node name="Soldier" type="Area2D" unique_id=1210977478]
-script = ExtResource("1_x0xke")
+[node name="Assault" type="Area2D" unique_id=1210977478]
+script = ExtResource("1_2gv0r")
+range = 100
+damage = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=847098673]
 sprite_frames = SubResource("SpriteFrames_ihnlc")

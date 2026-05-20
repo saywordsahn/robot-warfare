@@ -3,7 +3,10 @@
 [ext_resource type="FontFile" uid="uid://cadew2ysd8qqp" path="res://PressStart2P-Regular.ttf" id="1_l4paj"]
 [ext_resource type="Script" uid="uid://b2mnj54fgupmc" path="res://scripts/util/damage_numbers.gd" id="1_vr73o"]
 
-[node name="DamageNumbers" type="Label" unique_id=286033471]
+[node name="DamageNumbers" type="Node2D" unique_id=259374225]
+script = ExtResource("1_vr73o")
+
+[node name="DamageNumbers" type="Label" parent="." unique_id=286033471]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -19,9 +22,8 @@ theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("1_l4paj")
 theme_override_font_sizes/font_size = 8
 text = "999"
-script = ExtResource("1_vr73o")
 
 [node name="Timer" type="Timer" parent="." unique_id=1299946193]
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="DamageNumbers" method="_on_timer_timeout"]

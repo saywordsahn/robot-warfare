@@ -2,7 +2,8 @@ extends Node
 
 var sounds = {
 	"gunshot": preload("res://sounds/effects/gunshot.mp3"),
-	"ui-select": preload("res://sounds/ui/button-click.wav")
+	"ui-select": preload("res://sounds/ui/button-click.wav"),
+	"lose": preload("res://sounds/effects/lose.wav")
 }
 
 var sfx_player

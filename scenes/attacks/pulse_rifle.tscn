@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://cgsvfqw2tfcm5"]
-
-[ext_resource type="Script" uid="uid://pilsc86ullqb" path="res://scenes/attacks/pulse_rifle.gd" id="1_6glba"]
-
-[node name="PulseRifle" type="Node2D" unique_id=757888504]
-script = ExtResource("1_6glba")
-
-[node name="Cooldown" type="Timer" parent="." unique_id=98001981]

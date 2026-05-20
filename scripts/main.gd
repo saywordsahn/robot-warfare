@@ -3,10 +3,20 @@ extends Node2D
 const SCARAB = preload("uid://bdlenhbuyuu13")
 const SMALL_FRAGMENTS = preload("uid://cua5yx7i2fthw")
 const DAMAGE_NUMBERS = preload("uid://cavvx4krfmcvh")
+const SOLDIER = preload("uid://6qns4wkoe8hd")
+const SNIPER = preload("uid://cjcjlt0nrdoos")
+const MACHINE_GUNNER = preload("uid://ct65jnvyqy30o")
 
+@export var starting_money = 1000
+@export var soldier_cost: int = 100
+@export var sniper_cost: int = 500
+@export var machine_gunner_cost: int = 300
 
-var money = 0
-var health = 100
+var round = 1
+var game_over = false
+var money = starting_money
+
+var selected_object = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -14,7 +24,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed('pause'):
 		$UI/PauseMenu.show()
 		get_tree().paused = true
-	
 	
 	if Input.is_action_just_pressed('pan_left'):
 		create_tween()\
@@ -44,6 +53,35 @@ func _process(delta: float) -> void:
 		var fragments = SMALL_FRAGMENTS.instantiate()
 		fragments.global_position = get_global_mouse_position()
 		add_child(fragments)
+		
+	if Input.is_action_just_pressed("place_soldier"):
+		if selected_object == 1 and money >= soldier_cost:
+			money -= soldier_cost
+			var soldier = SOLDIER.instantiate()
+			soldier.global_position = get_global_mouse_position()
+			add_child(soldier)
+		elif selected_object == 2 and money >= sniper_cost:
+			money -= sniper_cost
+			var soldier = SNIPER.instantiate()
+			soldier.global_position = get_global_mouse_position()
+			add_child(soldier)
+		elif selected_object == 3 and money >= machine_gunner_cost:
+			money -= machine_gunner_cost
+			var soldier = MACHINE_GUNNER.instantiate()
+			soldier.global_position = get_global_mouse_position()
+			add_child(soldier)
+		
+		$UI/MoneyLabel.text = '$ ' + str(money)
+		
+	if Input.is_action_just_pressed("slot_1"):
+		selected_object = 1
+		$UI/SelectedObjectLabel.text = 'Right-Click: Assualt'
+	elif Input.is_action_just_pressed("slot_2"):
+		selected_object = 2
+		$UI/SelectedObjectLabel.text = 'Right-Click: Sniper'
+	elif Input.is_action_just_pressed("slot_3"):
+		selected_object = 3
+		$UI/SelectedObjectLabel.text = 'Right-Click: Machine Gunner'
 
 
 func _on_enemy_killed():
@@ -68,11 +106,17 @@ func add_damage_nums(amount, position):
 	add_child(damage_numbers)
 
 func base_reached():
-	$UI/GameOverLabel.show()
-	$UI/ReturnToMainButton.show()
+	if game_over == false:
+		$RoundTimer.stop()
+		game_over = true
+		SoundManager.play("lose")
+		$UI/GameOverLabel.show()
+		$UI/ReturnToMainButton.show()
 
 
 func _on_round_timer_timeout() -> void:
+	round += 1
+	$UI/RoundLabel.text = 'Round ' + str(round)
 	$ScarabSpawnTimer.wait_time *= .9	
 
 

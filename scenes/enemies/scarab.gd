@@ -20,13 +20,13 @@ func take_damage(amount: int):
 		remove_from_group("robots")
 		alive = false
 		set_process(false)
-		
-	if global_position.x < 0:
-		on_base_reached.emit()
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	if alive and event is InputEventMouseButton and event.pressed:
+	if alive and Input.is_action_just_pressed("main_weapon"):
 		take_damage(7)
 
 func _process(delta: float) -> void:
 	position.x -= speed * delta
+	
+	if global_position.x < 0:
+		on_base_reached.emit()

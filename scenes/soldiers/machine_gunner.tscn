@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://ct65jnvyqy30o"]
+
+[ext_resource type="Script" uid="uid://v1jbwpdms40f" path="res://scripts/soldiers/machine_gunner.gd" id="1_ca06o"]
+[ext_resource type="Texture2D" uid="uid://d1jrumi32gtjb" path="res://assets/Soldiers/MachineGunner-Class.png" id="2_6v7ew"]
+[ext_resource type="Texture2D" uid="uid://c8rj3urgt8o4" path="res://assets/Soldiers/Assault-Class.png" id="2_ca06o"]
+[ext_resource type="Texture2D" uid="uid://b0mvac774kpdr" path="res://assets/Effects/muzzle-flashes.png" id="3_6v7ew"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ghxj"]
+atlas = ExtResource("2_6v7ew")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnws3"]
+atlas = ExtResource("2_6v7ew")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0xke"]
+atlas = ExtResource("2_ca06o")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25aib"]
+atlas = ExtResource("2_ca06o")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihnlc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ghxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnws3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0xke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25aib")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gymt"]
+atlas = ExtResource("3_6v7ew")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0m3ua"]
+atlas = ExtResource("3_6v7ew")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cij1v"]
+atlas = ExtResource("3_6v7ew")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gfo7"]
+atlas = ExtResource("3_6v7ew")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iexre"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gymt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0m3ua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cij1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gfo7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25aib"]
+radius = 8.0
+
+[node name="MachineGunner" type="Area2D" unique_id=1210977478]
+script = ExtResource("1_ca06o")
+cooldown = 0.15
+damage = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=847098673]
+sprite_frames = SubResource("SpriteFrames_ihnlc")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1889569076]
+autostart = true
+
+[node name="MuzzleFlashAnimation" type="AnimatedSprite2D" parent="." unique_id=1738522728]
+position = Vector2(12, 0)
+sprite_frames = SubResource("SpriteFrames_iexre")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=979213389]
+shape = SubResource("CircleShape2D_25aib")
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="animation_finished" from="MuzzleFlashAnimation" to="." method="_on_muzzle_flash_animation_animation_finished"]

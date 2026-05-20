@@ -395,10 +395,10 @@ theme_override_font_sizes/font_size = 64
 text = "Temu Wars"
 
 [node name="StartButton" type="Button" parent="CanvasLayer" unique_id=1956659838]
-offset_left = 896.0
-offset_top = 247.0
-offset_right = 1144.0
-offset_bottom = 303.0
+offset_left = 877.0
+offset_top = 258.0
+offset_right = 1125.0
+offset_bottom = 314.0
 theme = ExtResource("5_ia1n6")
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("4_pyl7j")
@@ -407,10 +407,10 @@ text = "Start
 "
 
 [node name="QuitButton" type="Button" parent="CanvasLayer" unique_id=1927503828]
-offset_left = 899.0
-offset_top = 321.0
-offset_right = 1099.0
-offset_bottom = 377.0
+offset_left = 880.0
+offset_top = 348.0
+offset_right = 1080.0
+offset_bottom = 404.0
 theme = ExtResource("5_ia1n6")
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("4_pyl7j")
