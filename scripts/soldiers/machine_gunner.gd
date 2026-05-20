@@ -13,6 +13,7 @@ func _ready():
 func _on_shoot_timer_timeout() -> void:
 	var nearest = Targeting.get_random_enemy(global_position, range)
 	if nearest != null:
+		SoundManagerAdvanced.play('machine-gun-shot', -4.0, randf_range(-3, 2))
 		nearest.take_damage(damage)
 		$MuzzleFlashAnimation.play('default')
 		$MuzzleFlashAnimation.show()

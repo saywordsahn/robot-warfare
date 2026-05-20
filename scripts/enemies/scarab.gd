@@ -5,9 +5,12 @@ signal on_attacked(amount: int, position)
 
 @export var speed = 30
 @export var max_health: int = 14
-var health = max_health
 
+var health
 var alive = true
+
+func _ready():
+	health = max_health
 
 func take_damage(amount: int):
 	health -= amount

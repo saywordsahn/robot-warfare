@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bdlenhbuyuu13"]
 
-[ext_resource type="Script" uid="uid://b2go6y4of5ict" path="res://scenes/enemies/scarab.gd" id="1_malrx"]
+[ext_resource type="Script" uid="uid://b2go6y4of5ict" path="res://scripts/enemies/scarab.gd" id="1_malrx"]
 [ext_resource type="Texture2D" uid="uid://cgeowhj2mq22y" path="res://assets/Robots/Scarab.png" id="2_wqdd8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_malrx"]

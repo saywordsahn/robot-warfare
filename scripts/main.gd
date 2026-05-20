@@ -6,10 +6,13 @@ const DAMAGE_NUMBERS = preload("uid://cavvx4krfmcvh")
 const SOLDIER = preload("uid://6qns4wkoe8hd")
 const SNIPER = preload("uid://cjcjlt0nrdoos")
 const MACHINE_GUNNER = preload("uid://ct65jnvyqy30o")
+const ANTI_TANK = preload("uid://p3a52meojdv1")
+const SPIDER = preload("uid://xd3d3sp4ybyi")
 
 @export var starting_money = 1000
 @export var soldier_cost: int = 100
 @export var sniper_cost: int = 500
+@export var anti_tank_cost: int = 1000
 @export var machine_gunner_cost: int = 300
 
 var round = 1
@@ -70,6 +73,11 @@ func _process(delta: float) -> void:
 			var soldier = MACHINE_GUNNER.instantiate()
 			soldier.global_position = get_global_mouse_position()
 			add_child(soldier)
+		elif selected_object == 4 and money >= anti_tank_cost:
+			money -= anti_tank_cost
+			var soldier = ANTI_TANK.instantiate()
+			soldier.global_position = get_global_mouse_position()
+			add_child(soldier)
 		
 		$UI/MoneyLabel.text = '$ ' + str(money)
 		
@@ -82,6 +90,9 @@ func _process(delta: float) -> void:
 	elif Input.is_action_just_pressed("slot_3"):
 		selected_object = 3
 		$UI/SelectedObjectLabel.text = 'Right-Click: Machine Gunner'
+	elif Input.is_action_just_pressed("slot_4"):
+		selected_object = 4
+		$UI/SelectedObjectLabel.text = 'Right-Click: Anti-Tank'
 
 
 func _on_enemy_killed():
@@ -99,6 +110,17 @@ func _on_scarab_spawn_timer_timeout() -> void:
 	# a child of the node that the script is on
 	add_child(scarab)
 
+func _on_spider_spawn_timer_timeout() -> void:
+	var spider = SPIDER.instantiate()
+	spider.position.x = 350
+	spider.position.y = randi_range(15, 170)
+	spider.on_killed.connect(_on_enemy_killed)
+	spider.on_base_reached.connect(base_reached)
+	spider.on_attacked.connect(add_damage_nums)
+	# add_child adds the instance (scarab) as 
+	# a child of the node that the script is on
+	add_child(spider)
+
 func add_damage_nums(amount, position):
 	var damage_numbers = DAMAGE_NUMBERS.instantiate()
 	damage_numbers.global_position = position
@@ -112,7 +134,6 @@ func base_reached():
 		SoundManager.play("lose")
 		$UI/GameOverLabel.show()
 		$UI/ReturnToMainButton.show()
-
 
 func _on_round_timer_timeout() -> void:
 	round += 1

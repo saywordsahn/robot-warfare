@@ -3,7 +3,12 @@ extends Node
 var sounds = {
 	"gunshot": preload("res://sounds/effects/gunshot.mp3"),
 	"ui-select": preload("res://sounds/ui/button-click.wav"),
-	"lose": preload("res://sounds/effects/lose.wav")
+	"lose": preload("res://sounds/effects/lose.wav"),
+	"machine-gun": preload("res://sounds/effects/machine-gun-burst.mp3")
+}
+
+var music = {
+	"title": preload("res://sounds/music/montogoronto.mp3")
 }
 
 var sfx_player
@@ -21,8 +26,8 @@ func play(sound_name):
 		sfx_player.stream = sounds[sound_name]
 		sfx_player.play()
 
-func play_music(track):
-	music_player.stream = load(track)
+func play_music(track_name):
+	music_player.stream = music[track_name]
 	music_player.play()
 
 func stop_music():

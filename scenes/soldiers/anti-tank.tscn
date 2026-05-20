@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://p3a52meojdv1"]
+
+[ext_resource type="Script" uid="uid://bfvuvqxdw70ev" path="res://scripts/soldiers/anti_tank.gd" id="1_648mv"]
+[ext_resource type="Texture2D" uid="uid://c8rj3urgt8o4" path="res://assets/Soldiers/Assault-Class.png" id="2_0okov"]
+[ext_resource type="Texture2D" uid="uid://di0p7gosv8ww3" path="res://assets/Soldiers/AntiTank-Class.png" id="2_648mv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0okov"]
+atlas = ExtResource("2_648mv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7q2hl"]
+atlas = ExtResource("2_648mv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jbaju"]
+atlas = ExtResource("2_648mv")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a2ik"]
+atlas = ExtResource("2_648mv")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0xke"]
+atlas = ExtResource("2_0okov")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25aib"]
+atlas = ExtResource("2_0okov")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihnlc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0okov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7q2hl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jbaju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a2ik")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0xke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25aib")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25aib"]
+radius = 8.0
+
+[node name="AntiTank" type="Area2D" unique_id=1210977478]
+script = ExtResource("1_648mv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=847098673]
+sprite_frames = SubResource("SpriteFrames_ihnlc")
+animation = &"shoot"
+autoplay = "idle"
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1889569076]
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=979213389]
+shape = SubResource("CircleShape2D_25aib")
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
