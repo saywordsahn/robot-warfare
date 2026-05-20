@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bdlenhbuyuu13"]
+
+[ext_resource type="Script" uid="uid://b2go6y4of5ict" path="res://scenes/enemies/scarab.gd" id="1_malrx"]
+[ext_resource type="Texture2D" uid="uid://cgeowhj2mq22y" path="res://assets/Robots/Scarab.png" id="2_wqdd8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_malrx"]
+atlas = ExtResource("2_wqdd8")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hccou"]
+atlas = ExtResource("2_wqdd8")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ny0xv"]
+atlas = ExtResource("2_wqdd8")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqq8t"]
+atlas = ExtResource("2_wqdd8")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mhqs"]
+atlas = ExtResource("2_wqdd8")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bemdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_malrx")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hccou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ny0xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqq8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mhqs")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3g2r4"]
+radius = 7.071068
+
+[node name="Scarab" type="Area2D" unique_id=475780759 groups=["robots"]]
+script = ExtResource("1_malrx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=405138706]
+sprite_frames = SubResource("SpriteFrames_bemdh")
+animation = &"die"
+autoplay = "walk"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1184023722]
+shape = SubResource("CircleShape2D_3g2r4")
